@@ -1,0 +1,16 @@
+const webpack = require("webpack");
+const path = require("path");
+
+process.env.NODE_ENV = "development";
+
+module.exports = {
+  mode: "development",
+  target: "web",
+  devtool: "cheap-module-source-map",
+  entry: "./src/index",
+  output: {
+    path: path.resolve(__dirname, "build"),
+    publicPath: "/",
+    filename: "bundle.js",
+  },
+};
