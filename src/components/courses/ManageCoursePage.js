@@ -5,6 +5,7 @@ import { loadAuthors } from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
 import { newCourse } from "../../../tools/mockData";
 import CourseForm from "./CourseForm";
+import Spinner from "../common/Spinner";
 
 const ManageCoursePage = ({
   courses,
@@ -47,7 +48,9 @@ const ManageCoursePage = ({
     saveCourse(course).then(() => history.push("/courses"));
   };
 
-  return (
+  return authors.length === 0 || courses.length === 0 ? (
+    <Spinner />
+  ) : (
     <CourseForm
       course={course}
       authors={authors}
