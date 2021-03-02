@@ -23,14 +23,16 @@ const ManageCoursePage = ({
       loadCourses().catch((error) =>
         alert("Loading courses failed! Error: " + error)
       );
+    } else {
+      setCourse({ ...props.course });
     }
 
     if (authors.length === 0) {
-      loadAuthors().catch((error) =>
-        alert("Loading authors failed! Error: " + error)
-      );
+      loadAuthors().catch((error) => {
+        alert("Loading authors failed! Error: " + error);
+      });
     }
-  }, []);
+  }, [props.course]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -66,11 +68,21 @@ ManageCoursePage.propTypes = {
   history: PropTypes.object.isRequired,
 };
 
-function mapStateToProps(state) {
+function getCourseBySlug(courses, slug) {
+  return courses.find((course) => course.slug === slug);
+}
+
+function mapStateToProps(state, ownProps) {
+  const slug = ownProps.match.params.slug;
+  const course =
+    slug && state.courses.length > 0
+      ? getCourseBySlug(state.courses, slug)
+      : newCourse;
+
   return {
     courses: state.courses,
     authors: state.authors,
-    course: newCourse,
+    course,
   };
 }
 
