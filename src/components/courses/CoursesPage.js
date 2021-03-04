@@ -8,7 +8,6 @@ import CourseList from "./CourseList";
 import { Redirect } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
-import { catch } from "fetch-mock";
 
 class CoursesPage extends React.Component {
   state = {
